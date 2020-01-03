@@ -62,37 +62,40 @@ Module.register("MMM-telldusLive", {
         var container = document.createElement("div");
 
         // Devices
-        var tableWrapper = document.createElement("table");
-        tableWrapper.className = "small";
+		if ((this.config.devices.showAll == null) || (this.config.devices.showAll != null && this.config.devices.showAll)) {
+			var tableWrapper = document.createElement("table");
+			tableWrapper.className = "small";
 
-        for (var i = 0; i < this.status.devices.length; i++) {
+			for (var i = 0; i < this.status.devices.length; i++) {
 
-            var tr = document.createElement("tr");
-            tr.className = "normal";
+				var tr = document.createElement("tr");
+				tr.className = "normal";
 
-            var lampCell = document.createElement("td");
-            lampCell.className = "symbol light";
+				var lampCell = document.createElement("td");
+				lampCell.className = "symbol light";
 
-            var symbol = document.createElement("span");
+				var symbol = document.createElement("span");
 
-            if (this.status.devices[i].status === "on") {
-                symbol.className = "fa fa-toggle-on fa_with_bg";
-            } else {
-                symbol.className = "fa fa-toggle-off";
-            }
+				if (this.status.devices[i].status === "on") {
+					symbol.className = "fa fa-toggle-on fa_with_bg";
+				} else {
+					symbol.className = "fa fa-toggle-off";
+				}
 
-            lampCell.appendChild(symbol);
-            tr.appendChild(lampCell);
+				lampCell.appendChild(symbol);
+				tr.appendChild(lampCell);
 
-            var deviceCell = document.createElement("td");
-            deviceCell.className = "title small light";
-            deviceCell.innerHTML = this.status.devices[i].name;
-            tr.appendChild(deviceCell);
+				var deviceCell = document.createElement("td");
+				deviceCell.className = "title small light";
+				deviceCell.innerHTML = this.status.devices[i].name;
+				tr.appendChild(deviceCell);
 
-            tableWrapper.appendChild(tr);
-        }
+				tableWrapper.appendChild(tr);
+			}
 
-        container.appendChild(tableWrapper);
+			container.appendChild(tableWrapper);
+
+		}
 
         // Sensors
         if (this.status.sensors != null && this.status.sensors.length) {
