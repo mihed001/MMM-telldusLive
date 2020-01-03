@@ -62,7 +62,8 @@ Module.register("MMM-telldusLive", {
         var container = document.createElement("div");
 
         // Devices
-		if ((this.config.devices.showAll == null) || (this.config.devices.showAll != null && this.config.devices.showAll)) {
+		if (this.config.devices == null || this.config.devices.showAll == null || 
+			(this.config.devices.showAll != null && this.config.devices.showAll)) {
 			var tableWrapper = document.createElement("table");
 			tableWrapper.className = "small";
 
@@ -109,7 +110,11 @@ Module.register("MMM-telldusLive", {
                 sensorTr.className = "normal";
 
                 var sensorTd = document.createElement("td");
-                sensorTd.innerHTML = this.status.sensors[i].name;
+				if (this.status.sensors[i].title != null && this.status.sensors[i].title != "") {
+					// Use custom title instead of sensor name
+					sensorTd.innerHTML = this.status.sensors[i].title;
+				}
+				else sensorTd.innerHTML = this.status.sensors[i].name;
 
                 sensorTr.appendChild(sensorTd);
                 sensorTableWrapper.appendChild(sensorTr);
@@ -183,6 +188,8 @@ Module.register("MMM-telldusLive", {
                 return "fa-wind";
             case "wgust":
                 return "fa-wind";
+            case "watt":
+                return "fa-bolt";
             default:
                 return "fa-satellite-dish";
         }  
@@ -203,6 +210,8 @@ Module.register("MMM-telldusLive", {
                 return "Wind speed, avarage";
             case "wgust":
                 return "Wind speed, gust";
+            case "watt":
+                return "kWh";
             default:
                 return "Other";
         }

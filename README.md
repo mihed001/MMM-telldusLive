@@ -46,6 +46,10 @@ modules: [
 				privateKey: '<private_key>', 
 				token: '<token>', 
 				tokenSecret: '<token_secret>',
+				devices: {
+					showAll: <bool>,
+					devicesToShow: <object>
+				} 
 				sensors: {
 					includeIgnored: <bool>,
 					showAll: <bool>,
@@ -91,7 +95,8 @@ temp = Temperature (sv. Temperatur)
 barpress = Atmospheric pressure (sv. Lufttryck)  
 humidity = Humidity (sv. Luftfuktighet)  
 wavg = Wind speed, avarage (sv. Vindhastighet medel)  
-wgust = Wind speed, gust (sv. Byvind)  
+wgust = Wind speed, gust (sv. Byvind)
+watt = Energy consumption (sv. kWh)
 
 To remove sensors from the MagicMirror, simply remove the sensors-section in the config.
 
