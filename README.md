@@ -67,7 +67,7 @@ modules: [
 Show sensors on the MagicMirror.
 
 #### Description
-Sensors = The actual unit (Outdoor, Living room...)  
+Sensors = The actual unit (Outdoor, Living room...)
 Title = If you want to replace the sensor name with a different name/title
 Data = Data on the unit (temperature, wind speed...)
 Sort = Sort order
