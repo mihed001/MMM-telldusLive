@@ -47,6 +47,7 @@ modules: [
 				token: '<token>', 
 				tokenSecret: '<token_secret>',
 				devices: {
+					includeIgnored: <bool>,
 					showAll: <bool>,
 					devicesToShow: <object>
 				} 
@@ -67,7 +68,9 @@ Show sensors on the MagicMirror.
 
 #### Description
 Sensors = The actual unit (Outdoor, Living room...)  
+Title = If you want to replace the sensor name with a different name/title
 Data = Data on the unit (temperature, wind speed...)
+Sort = Sort order
 
 #### Configuration options
 Option | Description
@@ -83,8 +86,8 @@ sensorsToShow|Select which sensors and data are displayed. Works only if `showAl
 #### Syntax  
 ````
 sensorsToShow: [
-	{name: "Outdoor", data: ["wdir", "temp"]}, 
-	{name: "Living room", data: ["temp"]}
+	{name: "Outdoor", title: "Utomhus", data: ["wdir", "temp"], sort 1}, 
+	{name: "Living room", title: "Vardagsrum", data: ["temp"], sort: 2}
 ]
 ````
 

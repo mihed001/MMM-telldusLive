@@ -93,6 +93,8 @@ module.exports = NodeHelper.create({
                                         
                                         // Replace data array
                                         sensor.data = selectedDataToShow;
+										sensor.title = sensorToShowConfig.title;
+										sensor.sort = sensorToShowConfig.sort;
                                         
                                         // Mark sensor as selected
                                         return true;
@@ -106,7 +108,7 @@ module.exports = NodeHelper.create({
                                                         
                             // Add sensor to list
                             if (showAllSensors || sensorToShow) {
-                                allSensors.push({id: sensor.id, name: sensor.name, data: sensor.data});
+                                allSensors.push({id: sensor.id, name: sensor.name, data: sensor.data, title: sensor.title, sort: sensor.sort});
                             }
                         });
                         

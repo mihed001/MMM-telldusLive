@@ -5,6 +5,7 @@
  *
  * By Kim Lood
  * MIT Licensed.
+ * Forked 20190103 by Mikael Hedlund
  */
 
 Module.register("MMM-telldusLive", {
@@ -74,6 +75,7 @@ Module.register("MMM-telldusLive", {
 
 				var lampCell = document.createElement("td");
 				lampCell.className = "symbol light";
+				lampCell.style.textAlign = this.config.align;
 
 				var symbol = document.createElement("span");
 
@@ -102,14 +104,18 @@ Module.register("MMM-telldusLive", {
         if (this.status.sensors != null && this.status.sensors.length) {
             var hideDataIcons = this.config.sensors.hideDataIcons != null && this.config.sensors.hideDataIcons;
             var showDataFullNames = this.config.sensors.showDataFullNames != null && this.config.sensors.showDataFullNames;
+            var addEmptyLine = this.config.sensors.addEmptyLine != null && this.config.sensors.addEmptyLine;
             var sensorTableWrapper = document.createElement("table");
             sensorTableWrapper.className = "small tellduslive-sensors-table";
+
+			this.status.sensors.sort(function(a, b){return a.sort - b.sort});
 
             for (var i = 0; i < this.status.sensors.length; i++) {
                 var sensorTr = document.createElement("tr");
                 sensorTr.className = "normal";
 
                 var sensorTd = document.createElement("td");
+				sensorTd.style.textAlign = this.config.align;
 				if (this.status.sensors[i].title != null && this.status.sensors[i].title != "") {
 					// Use custom title instead of sensor name
 					sensorTd.innerHTML = this.status.sensors[i].title;
@@ -119,7 +125,7 @@ Module.register("MMM-telldusLive", {
                 sensorTr.appendChild(sensorTd);
                 sensorTableWrapper.appendChild(sensorTr);
 
-                for(var x = 0; x < this.status.sensors[i].data.length; x++) {
+                for (var x = 0; x < this.status.sensors[i].data.length; x++) {
                     var icon = "";
                         
                     // Config hide data icons
@@ -140,31 +146,31 @@ Module.register("MMM-telldusLive", {
                     // Config hide data names
                     var dataName = this.config.sensors.hideDataNames != null && this.config.sensors.hideDataNames ? "" : this.status.sensors[i].data[x].name + ": ";
                     
-                    var dataValue = dataName + "<span class='light'>" + this.status.sensors[i].data[x].value + " " + this.status.sensors[i].data[x].unit + "</span>";
+                    var dataValue = dataName + "<span class='light'>" + this.status.sensors[i].data[x].value + this.status.sensors[i].data[x].unit + "</span>";
                     
                     // One row
                     if (this.config.sensors.oneRow) {
                         var dataSpan = document.createElement("span");
-                        dataSpan.innerHTML = " - " + icon + dataValue;
+                        dataSpan.innerHTML = " " + icon + dataValue;
                         sensorTd.appendChild(dataSpan);
                     } 
                     // Multi rows
                     else {
                         var sensorDataTr = document.createElement("tr");
                         var sensorDataTd = document.createElement("td");
-                        
                         sensorDataTd.innerHTML = icon + dataValue;
                         sensorDataTr.appendChild(sensorDataTd);
-
                         sensorTableWrapper.appendChild(sensorDataTr);
                     }
                 }
 
-                var emptyLineTr = document.createElement("tr");
-                var emptyLineTd = document.createElement("td");
-                emptyLineTd.innerHTML = "&nbsp;";
-                emptyLineTr.appendChild(emptyLineTd);
-                sensorTableWrapper.appendChild(emptyLineTr);
+				if (addEmptyLine) {
+					var emptyLineTr = document.createElement("tr");
+					var emptyLineTd = document.createElement("td");
+					emptyLineTd.innerHTML = "&nbsp;";
+					emptyLineTr.appendChild(emptyLineTd);
+					sensorTableWrapper.appendChild(emptyLineTr);
+				}
             }
 
             container.appendChild(sensorTableWrapper);
