@@ -112,7 +112,7 @@ Module.register("MMM-telldusLive", {
 
             for (var i = 0; i < this.status.sensors.length; i++) {
                 var sensorTr = document.createElement("tr");
-                sensorTr.className = "normal";
+                sensorTr.className = "small";
 
                 var sensorTd = document.createElement("td");
 				sensorTd.style.textAlign = this.config.align;
